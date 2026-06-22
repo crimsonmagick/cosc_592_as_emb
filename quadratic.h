@@ -1,5 +1,0 @@
-
-#ifndef COSC_592_AS_EM_QUADRATIC_H
-#define COSC_592_AS_EM_QUADRATIC_H
-
-#endif
