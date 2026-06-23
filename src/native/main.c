@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "math/simple/prime.h"
-#include "math/complex/quadratic.h"
+#include "functions/prime.h"
+#include "functions/quadratic.h"
 
 int main(void) {
   const int toTest = 5;
