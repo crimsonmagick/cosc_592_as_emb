@@ -31,10 +31,11 @@ class GnuCompilerCollection(Compiler):
             raise TypeError("file_path, out_dir, and optimization_level are all required")
         file_name = os.path.basename(file_path)
         out_file_name = file_name.split('.')[0] + '.o'
-        out_path = Path(out_dir, out_file_name)
+        out_path = Path(out_dir, out_file_name).resolve()
         os.makedirs(os.path.dirname(out_path), exist_ok=True)
 
-        res = subprocess.run(["gcc", "-c", file_path, "-o", out_path])
+        res = subprocess.run(["gcc", "-c", file_path, "-o", out_path], capture_output=True)
         if res.returncode != 0:
-            raise RuntimeError(f"GCC returned code {res.returncode}")
+            error = res.stderr.decode().replace("\n", ";")
+            raise RuntimeError(f"GCC returned code {res.returncode}, error={error}")
         return out_path

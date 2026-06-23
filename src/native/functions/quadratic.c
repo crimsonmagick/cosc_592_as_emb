@@ -1,4 +1,4 @@
-#include "../complex_interface/quadratic.h"
+#include "quadratic.h"
 
 #include <math.h>
 
