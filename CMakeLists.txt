@@ -20,6 +20,9 @@ add_executable(cosc_592_as_emb src/native/main.c
     src/native/functions/linearsearch.c
     src/native/functions/linearsearch.h
     src/native/functions/stringlength.c
-    src/native/functions/stringlength.h)
+    src/native/functions/stringlength.h
+    src/native/functions/stddev.c
+    src/native/functions/hypotenuse.c
+    src/native/functions/linked_list.c)
 
 target_link_libraries(cosc_592_as_emb PRIVATE m)
