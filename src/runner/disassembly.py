@@ -1,6 +1,6 @@
 import subprocess
 
-from runner.validation import validate_response
+from src.runner.validation import validate_response
 
 
 def disassemble(source_path, *, strip: bool) -> str:

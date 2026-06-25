@@ -3,9 +3,9 @@ import os.path
 from itertools import product
 from pathlib import Path
 
-from runner.disassembly import disassemble
-from runner.embedding import generate_embeddings
-from runner.heatmap import generate_heatmaps
+from src.runner.disassembly import disassemble
+from src.runner.embedding import generate_embeddings
+from src.runner.heatmap import generate_heatmaps
 from src.runner.compiler import GnuCompilerCollection, OptimizationLevel, Msvc, Clang
 
 logging.basicConfig(level=logging.ERROR)
@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_source_paths():
-    source_dir = os.path.abspath('../native/functions')
+    source_dir = os.path.abspath('src/native/functions')
     return [Path(source_dir, file_name)
             for file_name in os.listdir(source_dir) if file_name.endswith(".c")]
 
@@ -21,11 +21,13 @@ def get_source_paths():
 def run_experiment():
     logger.setLevel(logging.INFO)
 
-    out_dir = os.path.abspath('../../out')
+    out_dir = os.path.abspath('out')
     object_dir = Path(out_dir, 'objects')
+    heatmap_dir = Path(out_dir, 'heatmaps')
     disassembly_dir = Path(out_dir, 'disassembly')
     os.makedirs(disassembly_dir, exist_ok=True)
     os.makedirs(object_dir, exist_ok=True)
+    os.makedirs(heatmap_dir, exist_ok=True)
 
     source_paths = get_source_paths()
     function_names = [source_path.stem for source_path in source_paths]
@@ -60,7 +62,7 @@ def run_experiment():
                        "Qwen/Qwen3-Embedding-4B", "Qwen/Qwen3-Embedding-8B"]:
         embeddings = generate_embeddings(model_name, disassemblies, batch_size=4)
         group_size = len(compilers) * len(optimization_levels)
-        generate_heatmaps(embeddings, model_name=model_name, function_names=function_names, group_size=group_size)
+        generate_heatmaps(embeddings, model_name=model_name, function_names=function_names, group_size=group_size, out_dir=heatmap_dir)
 
 
 if __name__ == "__main__":
