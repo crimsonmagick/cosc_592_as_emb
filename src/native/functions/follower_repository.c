@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "list.h"
-#include "int_map.h"
-#include "follower_repository.h"
-#include "shared.h"
+#include "includes/list.h"
+#include "includes/int_map.h"
+#include "includes/follower_repository.h"
+#include "includes/shared.h"
 
 static IntMap *idolMap = NULL;
 static IntMap *followerMap = NULL;

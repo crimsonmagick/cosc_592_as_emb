@@ -1,6 +1,6 @@
-#include "quadratic.h"
-
 #include <math.h>
+
+#include "includes/quadratic.h"
 
 void findQuadraticRoots(const double a, const double b, const double c, struct ComplexNumber *roots) {
   roots[0].imaginaryPart = roots[1].imaginaryPart = 0;
