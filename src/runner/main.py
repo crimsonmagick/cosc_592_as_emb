@@ -3,6 +3,8 @@ import os.path
 from itertools import product
 from pathlib import Path
 
+import yaml
+
 from src.runner.disassembly import disassemble
 from src.runner.embedding import generate_embeddings
 from src.runner.heatmap import generate_heatmaps
@@ -20,6 +22,11 @@ def get_source_paths():
 
 def run_experiment():
     logger.setLevel(logging.INFO)
+
+    with open('config/config.yml', 'r') as f:
+        config_params = yaml.safe_load(f)
+    batch_size = config_params['batch_size']
+    model_names = config_params['models']
 
     out_dir = os.path.abspath('out')
     object_dir = Path(out_dir, 'objects')
@@ -58,9 +65,8 @@ def run_experiment():
         logger.error("Failed to process source files", exc_info=e)
         raise e
 
-    for model_name in ["mchochlov/codebert-base-cd-ft", "bigcode/starcoder2-7b", "Qwen/Qwen3-Embedding-0.6B",
-                       "Qwen/Qwen3-Embedding-4B", "Qwen/Qwen3-Embedding-8B"]:
-        embeddings = generate_embeddings(model_name, disassemblies, batch_size=4)
+    for model_name in model_names:
+        embeddings = generate_embeddings(model_name, disassemblies, batch_size=batch_size)
         group_size = len(compilers) * len(optimization_levels)
         generate_heatmaps(embeddings, model_name=model_name, function_names=function_names, group_size=group_size, out_dir=heatmap_dir)
 

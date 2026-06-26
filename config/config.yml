@@ -1,0 +1,7 @@
+batch_size: 4
+models:
+  - "mchochlov/codebert-base-cd-ft"
+  - "bigcode/starcoder2-7b"
+  - "Qwen/Qwen3-Embedding-0.6B"
+  - "Qwen/Qwen3-Embedding-4B"
+  - "Qwen/Qwen3-Embedding-8B"
