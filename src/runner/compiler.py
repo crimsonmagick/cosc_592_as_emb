@@ -20,6 +20,10 @@ class OptimizationLevel(Enum):
 
 
 class Compiler(ABC):
+    """ Compiles C source files into object files.
+
+    Implementation class should provide the command for the toolchain, including optimization level mapping.
+    """
 
     def compile(self, file_path, out_dir, optimization_level: OptimizationLevel) -> Path:
         if not file_path or not out_dir or not optimization_level:

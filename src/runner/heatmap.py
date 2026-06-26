@@ -8,7 +8,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 def generate_heatmaps(embeddings, *, model_name, function_names, group_size, out_dir):
     similarities = cosine_similarity(embeddings)
     embedding_dim = embeddings.shape[1]
-    plt.figure(figsize=(12, 10))
+    plt.figure(figsize=(12, 10)) # large plot, 12 by 10 inches
 
     dis_hm = sns.heatmap(
         similarities,
@@ -22,7 +22,7 @@ def generate_heatmaps(embeddings, *, model_name, function_names, group_size, out
         dis_hm.axhline(i, color="white", linewidth=2)
         dis_hm.axvline(i, color="white", linewidth=2)
 
-    centers = [i * 9 + 4 for i in range(len(function_names))]
+    centers = [i * group_size + group_size // 2 for i in range(len(function_names))]
 
     dis_hm.set_xticks(centers)
     dis_hm.set_yticks(centers)

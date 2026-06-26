@@ -29,10 +29,10 @@ RUN echo 'export PATH="$PATH:/workspace/msvc/bin/x64"' >> ~/.bashrc
 ENV PATH="/workspace/msvc/bin/x64:${PATH}"
 
 COPY requirements.txt .
+RUN py -m venv .venv
+RUN . .venv/bin/activate && pip install -r requirements.txt
 COPY ./src ./src
 COPY ./.git ./.git
 COPY ./.gitignore ./.gitignore
-RUN py -m venv .venv
-RUN . .venv/bin/activate && pip install -r requirements.txt
 ENV VIRTUAL_ENV=/workspace/.venv
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
